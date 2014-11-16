@@ -21,7 +21,7 @@ $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
-3. Add into funtion.php in your WP theme
+3. Add into function.php in your WP theme
 
 ```php
 	add_action('init', 'vendor_autoload', 1);
