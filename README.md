@@ -9,7 +9,7 @@ Installation
 ```json
 {
     "require": {
-        "lusitanian/oauth": "~0.3"
+        "fruitware/oauth": "dev-master"
     }
 }
 ```
