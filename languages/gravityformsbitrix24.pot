@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gravity Forms Bitrix24 Add-On\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-23 10:54-0500\n"
+"PO-Revision-Date: 2014-10-23 10:55-0500\n"
+"Last-Translator: Dana Cobb <dana@rocketgenius.com>\n"
+"Language-Team: Rocketgenius <customerservice@rocketgenius.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../class-gf-bitrix24.php:43
+msgid "Subscribe user to Bitrix24 only when payment is received."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:53
+msgid "Bitrix24 Account Information"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:55
+#, php-format
+msgid ""
+"Bitrix24 makes it easy to send email newsletters to your customers, manage "
+"your subscriber lists, and track campaign performance. Use Gravity Forms to "
+"collect customer information and automatically add them to your Bitrix24 "
+"subscriber list. If you don't have a Bitrix24 account, you can %1$s sign up "
+"for one here.%2$s"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:61
+msgid "Bitrix24 API Key"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:103
+msgid "Bitrix24 Feed Settings"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:108 ../class-gf-bitrix24.php:112
+#: ../class-gf-bitrix24.php:217
+msgid "Name"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:112
+msgid "Enter a feed name to uniquely identify this setup."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:116 ../class-gf-bitrix24.php:119
+#: ../class-gf-bitrix24.php:218
+msgid "Bitrix24 List"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:119
+msgid "Select the Bitrix24 list you would like to add your contacts to."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:130 ../class-gf-bitrix24.php:133
+msgid "Map Fields"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:133
+msgid ""
+"Associate your Bitrix24 merge variables to the appropriate Gravity Form "
+"fields by selecting."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:137 ../class-gf-bitrix24.php:140
+msgid "Groups"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:140
+msgid ""
+"When one or more groups are enabled, users will be assigned to the groups in "
+"addition to being subscribed to the Bitrix24 list. When disabled, users "
+"will not be assigned to groups."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:144 ../class-gf-bitrix24.php:148
+msgid "Opt-In Condition"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:146
+msgid "Enable"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:147
+msgid "Export to Bitrix24 if"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:148
+msgid ""
+"When the opt-in condition is enabled, form submissions will only be exported "
+"to Bitrix24 when the conditions are met. When disabled all form submissions "
+"will be exported."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:152
+msgid "Options"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:157 ../class-gf-bitrix24.php:159
+msgid "Double Opt-In"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:159
+msgid ""
+"When the double opt-in option is enabled, Bitrix24 will send a confirmation "
+"email to the user and will only add them to your Bitrix24 list upon "
+"confirmation."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:164 ../class-gf-bitrix24.php:165
+msgid "Send Welcome Email"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:165
+msgid ""
+"When this option is enabled, users will receive an automatic welcome email "
+"from Bitrix24 upon being added to your Bitrix24 list."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:185
+msgid "Abusing this may cause your Bitrix24 account to be suspended."
+msgstr ""
+
+#: ../class-gf-bitrix24.php:201
+#, php-format
+msgid ""
+"We are unable to login to Bitrix24 with the provided credentials. Please "
+"make sure they are valid in the %sSettings Page%s"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:245 ../class-gf-bitrix24.php:249
+#: ../class-gf-bitrix24.php:252
+msgid "Could not load Bitrix24 contact lists. <br/>Error: "
+msgstr ""
+
+#: ../class-gf-bitrix24.php:261
+msgid "Select a Bitrix24 List"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:395
+msgid "Assign to group:"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:404
+msgid "Always"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:408
+msgid "If"
+msgstr ""
+
+#: ../class-gf-bitrix24.php:734
+msgid "(List not found in Bitrix24"
+msgstr ""

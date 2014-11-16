@@ -1,0 +1,21 @@
+{
+  "name": "fruitware/gravityformsbitrix24",
+  "type": "wordpress-plugin",
+  "description": "WordPress Plugin description",
+  "keywords": ["wordpress", "plugin", "bitrix24", "leads"],
+  "homepage": "http://fruitware.ru",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Coroliov Oleg",
+      "email": "ruscon@gmail.com",
+      "homepage": "https://github.com/ruscon"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "composer/installers": "v1.*",
+    "mesilov/bitrix24-php-sdk":"dev-master",
+    "lusitanian/oauth": "~0.3"
+  }
+}
