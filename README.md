@@ -4,7 +4,7 @@ gravityformsbitrix24
 Installation
 ------------
 
-1. Edit your `composer.json` and add:
+1) Edit your `composer.json` and add:
 
 ```json
 {
@@ -14,14 +14,14 @@ Installation
 }
 ```
 
-2. Install dependencies:
+2) Install dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
-3. Add into function.php in your WP theme
+3) Add into function.php in your WP theme
 
 ```php
 	add_action('init', 'vendor_autoload', 1);
@@ -32,4 +32,4 @@ $ php composer.phar install
 	}
 ```
 
-4. Activate plugin in admin panel
+4) Activate plugin in admin panel
