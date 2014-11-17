@@ -57,7 +57,18 @@ class GFBitrix24 extends GFFeedAddOn {
 		add_action( 'wp_ajax_gf_dismiss_bitrix24_menu', array( $this, 'ajax_dismiss_menu' ) );
 	}
 
-	protected function oauth_login()
+	protected function refresh_token()
+	{
+		return $this->oauth_login(true);
+	}
+
+	/**
+	 * @param bool $need_refresh_token
+	 *
+	 * @return array|null
+	 * @throws \OAuth\OAuth2\Service\Exception\MissingRefreshTokenException
+	 */
+	protected function oauth_login($need_refresh_token = false)
 	{
 		$settings = $this->get_current_settings();
 		if (!$settings) $settings = $this->get_plugin_settings();
@@ -77,6 +88,17 @@ class GFBitrix24 extends GFFeedAddOn {
 		/** @var $provider \OAuth\OAuth2\Service\Bitrix24 */
 		$provider = $serviceFactory->createService('Bitrix24', $credentials, $storage, array('crm'), new \OAuth\Common\Http\Uri\Uri('https://'.$settings['domain']));
 
+		if ($need_refresh_token) {
+			$token = new OAuth\OAuth2\Token\StdOAuth2Token();
+			$token->setAccessToken($settings['refreshId']);
+			$token = $provider->refreshAccessToken($token);
+
+			$settings['refreshId'] = $token->getRefreshToken();
+			$this->update_plugin_settings($settings);
+
+			return $settings;
+		}
+
 		if (!isset($_GET['code'])) {
 			_e( 'Please wait...', 'gravityformsbitrix24' );
 			echo '<script>window.location = "'.$provider->getAuthorizationUri().'";</script>';
@@ -88,6 +110,7 @@ class GFBitrix24 extends GFFeedAddOn {
 			$settings['memberId'] = $_GET['member_id'];
 			$settings['authId'] = $token->getAccessToken();
 			$settings['refreshId'] = $token->getRefreshToken();
+			$settings['endOfLife'] = $token->getEndOfLife();
 
 			$this->update_plugin_settings($settings);
 
@@ -342,13 +365,17 @@ class GFBitrix24 extends GFFeedAddOn {
 		$settings = $this->get_plugin_settings();
 		$api      = null;
 
-		$require_vars = array('domain', 'clientId', 'clientSecret', 'memberId', 'authId', 'refreshId');
+		$require_vars = array('domain', 'clientId', 'clientSecret', 'memberId', 'authId', 'refreshId', 'endOfLife');
 
 		foreach ($require_vars as $require_var) {
 			if (empty($settings[$require_var])) {
 				$this->oauth_login();
 				return false;
 			}
+		}
+
+		if ($settings['endOfLife'] < time()){
+			$settings = $this->refresh_token();
 		}
 
 		if ( ! empty( $settings['domain'] ) && ! empty( $settings['clientId'] ) && ! empty( $settings['clientSecret'] ) ) {

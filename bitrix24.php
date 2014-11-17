@@ -31,6 +31,13 @@ define ('GF_BITRIX24_VERSION', '3.0');
 
 add_action( 'gform_loaded', array( 'GF_Bitrix24_Bootstrap', 'load' ), 5 );
 
+add_action('init', 'gf_vendor_autoload', 1);
+
+function gf_vendor_autoload()
+{
+	require_once get_home_path().'/vendor/autoload.php';
+}
+
 class GF_Bitrix24_Bootstrap {
 
 	public static function load(){
