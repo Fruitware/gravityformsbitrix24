@@ -70,8 +70,8 @@ class GFBitrix24 extends GFFeedAddOn {
 	 */
 	protected function oauth_login($need_refresh_token = false)
 	{
-		$settings = $this->get_current_settings();
-		if (!$settings) $settings = $this->get_plugin_settings();
+		$settings = $this->get_plugin_settings();
+		if (!$settings) $settings = $this->get_current_settings();
 
 
 		/** @var $serviceFactory \OAuth\ServiceFactory An OAuth service factory. */
@@ -264,7 +264,15 @@ class GFBitrix24 extends GFFeedAddOn {
 	 */
 	public function merge_vars_field_map() {
 		$api = $this->get_api();
-		$result = $api->fields();
+
+		try {
+			$result = $api->fields();
+		}
+		catch (\Bitrix24\Bitrix24ApiException $ex) {
+			$this->oauth_login(true);
+			$result = $api->fields();
+		}
+
 
 		$fields = array();
 		foreach ($result['result'] as $fieldKey => $field) {
@@ -351,7 +359,13 @@ class GFBitrix24 extends GFFeedAddOn {
 			}
 		}
 
-		$response = $api->add($merge_vars);
+		try {
+			$response = $api->add($merge_vars);
+		}
+		catch (\Bitrix24\Bitrix24ApiException $ex) {
+			$this->oauth_login(true);
+			$response = $api->add($merge_vars);
+		}
 
 		return $response['result'] > 0;
 	}
@@ -375,7 +389,7 @@ class GFBitrix24 extends GFFeedAddOn {
 			}
 		}
 
-		if ($settings['endOfLife'] < time()){
+		if (1 || $settings['endOfLife'] < time()){
 			$settings = $this->refresh_token();
 		}
 
