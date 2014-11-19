@@ -90,7 +90,8 @@ class GFBitrix24 extends GFFeedAddOn {
 
 		if ($need_refresh_token) {
 			$token = new OAuth\OAuth2\Token\StdOAuth2Token();
-			$token->setAccessToken($settings['refreshId']);
+			$token->setAccessToken($settings['authId']);
+			$token->setRefreshToken($settings['refreshId']);
 			$token = $provider->refreshAccessToken($token);
 
 			$settings['refreshId'] = $token->getRefreshToken();
