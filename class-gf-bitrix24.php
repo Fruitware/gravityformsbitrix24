@@ -46,6 +46,8 @@ class GFBitrix24 extends GFFeedAddOn {
 
 		add_filter( 'gform_addon_navigation', array( $this, 'maybe_create_menu' ) );
 
+//		array_push($form["fields"],array("id" => "ip" , "label" => __("User IP", "gravityforms")));
+
 		if (isset($_GET['member_id'])) {
 			$this->oauth_login();
 		}
@@ -181,6 +183,17 @@ class GFBitrix24 extends GFFeedAddOn {
 		return isset($settings['refreshId']);
 	}
 
+	public static function get_field_map_choices( $form_id ) {
+
+		$fields = parent::get_field_map_choices( $form_id );
+
+		// Adding default fields
+		$fields[] = array( "value" => "geoip_country" , "label" => __("Country (from Geo IP)", "gravityforms") );
+		$fields[] = array( "value" => "geoip_city" , "label" => __("City (from Geo IP)", "gravityforms") );
+
+		return $fields;
+	}
+
 	public function feed_settings_fields() {
 		return array(
 			array(
@@ -295,6 +308,8 @@ class GFBitrix24 extends GFFeedAddOn {
 	//------ Core Functionality ------
 
 	public function process_feed( $feed, $entry, $form ) {
+		$geoip_data = array();
+
 		$this->log_debug( 'Processing feed.' );
 
 		// login to Bitrix24
@@ -312,6 +327,14 @@ class GFBitrix24 extends GFFeedAddOn {
 		foreach ( $field_map as $name => $field_id ) {
 			// $field_id can also be a string like 'date_created'
 			switch ( strtolower( $field_id ) ) {
+				case 'geoip_country':
+				case 'geoip_city':
+					if (function_exists('geoip_detect_get_info_from_ip')) {
+						if (!$geoip_data) $geoip_data = geoip_detect_get_info_from_ip(@$_SERVER['REMOTE_ADDR']);
+						$geoip_field_key = $field_id == 'geoip_country' ? 'country_name' : 'city';
+						$merge_vars[ $name ] = $geoip_data->$geoip_field_key;
+					}
+					break;
 				case 'form_title':
 					$merge_vars[ $name ] = rgar( $form, 'title' );
 					break;
