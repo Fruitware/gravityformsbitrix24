@@ -94,8 +94,13 @@ class GFBitrix24 extends GFFeedAddOn {
 			$token->setRefreshToken($settings['refreshId']);
 			$token = $provider->refreshAccessToken($token);
 
+			$settings['authId'] = $token->getAccessToken();
 			$settings['refreshId'] = $token->getRefreshToken();
+			$settings['endOfLife'] = $token->getEndOfLife();
+
 			$this->update_plugin_settings($settings);
+
+			self::$api = null;
 
 			return $settings;
 		}
@@ -269,17 +274,17 @@ class GFBitrix24 extends GFFeedAddOn {
 			$result = $api->fields();
 		}
 		catch (\Bitrix24\Bitrix24ApiException $ex) {
-			$this->oauth_login(true);
+			$this->refresh_token();
+			$api = $this->get_api();
 			$result = $api->fields();
 		}
 
-
 		$fields = array();
 		foreach ($result['result'] as $fieldKey => $field) {
-			$name = isset($field['formLabel']) ? $field['formLabel'] : $fieldKey;
+			$label = isset($field['formLabel']) ? $field['formLabel'] : $fieldKey;
 			$fields[] = array(
-				'name'     => $name,
-				'label'    => $name,
+				'name'     => $fieldKey,
+				'label'    => $label,
 				'required' => $field['isRequired'],
 			);
 		}
@@ -363,7 +368,8 @@ class GFBitrix24 extends GFFeedAddOn {
 			$response = $api->add($merge_vars);
 		}
 		catch (\Bitrix24\Bitrix24ApiException $ex) {
-			$this->oauth_login(true);
+			$this->refresh_token();
+			$api = $this->get_api();
 			$response = $api->add($merge_vars);
 		}
 
@@ -389,7 +395,7 @@ class GFBitrix24 extends GFFeedAddOn {
 			}
 		}
 
-		if (1 || $settings['endOfLife'] < time()){
+		if ($settings['endOfLife'] < time()){
 			$settings = $this->refresh_token();
 		}
 
@@ -478,7 +484,6 @@ class GFBitrix24 extends GFFeedAddOn {
 	//------ Temporary Notice for Main Menu --------------------//
 
 	public function maybe_create_menu( $menus ) {
-//		var_dump('maybe_create_menu');
 		$current_user          = wp_get_current_user();
 		$dismiss_bitrix24_menu = get_metadata( 'user', $current_user->ID, 'dismiss_bitrix24_menu', true );
 		if ( $dismiss_bitrix24_menu != '1' ) {
