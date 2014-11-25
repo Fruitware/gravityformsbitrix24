@@ -8,18 +8,19 @@ msgstr ""
 "Project-Id-Version: Gravity Forms Bitrix24 Add-On\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-23 10:54-0500\n"
-"PO-Revision-Date: 2014-10-23 10:55-0500\n"
-"Last-Translator: Dana Cobb <dana@rocketgenius.com>\n"
+"PO-Revision-Date: 2014-11-25 12:16+0200\n"
+"Last-Translator: \n"
 "Language-Team: Rocketgenius <customerservice@rocketgenius.com>\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
+"Language: ru\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../class-gf-bitrix24.php:43
@@ -83,8 +84,8 @@ msgstr ""
 #: ../class-gf-bitrix24.php:140
 msgid ""
 "When one or more groups are enabled, users will be assigned to the groups in "
-"addition to being subscribed to the Bitrix24 list. When disabled, users "
-"will not be assigned to groups."
+"addition to being subscribed to the Bitrix24 list. When disabled, users will "
+"not be assigned to groups."
 msgstr ""
 
 #: ../class-gf-bitrix24.php:144 ../class-gf-bitrix24.php:148
@@ -169,120 +170,120 @@ msgstr ""
 
 #: ../class-gf-bitrix24.php:300
 msgid "TITLE"
-msgstr "TITLE"
+msgstr "Название лида"
 
 #: ../class-gf-bitrix24.php:300
 msgid "NAME"
-msgstr "NAME"
+msgstr "Имя"
 
 #: ../class-gf-bitrix24.php:300
 msgid "SECOND_NAME"
-msgstr "SECOND_NAME"
+msgstr "Отчество"
 
 #: ../class-gf-bitrix24.php:300
 msgid "LAST_NAME"
-msgstr "LAST_NAME"
+msgstr "Фамилия"
 
 #: ../class-gf-bitrix24.php:300
 msgid "BIRTHDATE"
-msgstr "BIRTHDATE"
+msgstr "Дата рождения"
 
 #: ../class-gf-bitrix24.php:300
 msgid "COMPANY_TITLE"
-msgstr "COMPANY_TITLE"
+msgstr "Название компании"
 
 #: ../class-gf-bitrix24.php:300
 msgid "SOURCE_ID"
-msgstr "SOURCE_ID"
+msgstr "Источник"
 
 #: ../class-gf-bitrix24.php:300
 msgid "SOURCE_DESCRIPTION"
-msgstr "SOURCE_DESCRIPTION"
+msgstr "Дополнительно об источнике"
 
 #: ../class-gf-bitrix24.php:300
 msgid "STATUS_ID"
-msgstr "STATUS_ID"
+msgstr "Статус"
 
 #: ../class-gf-bitrix24.php:300
 msgid "STATUS_DESCRIPTION"
-msgstr "STATUS_DESCRIPTION"
+msgstr "Дополнительно о статусе"
 
 #: ../class-gf-bitrix24.php:300
 msgid "POST"
-msgstr "POST"
+msgstr "Должность"
 
 #: ../class-gf-bitrix24.php:300
 msgid "ADDRESS"
-msgstr "ADDRESS"
+msgstr "Адрес"
 
 #: ../class-gf-bitrix24.php:300
 msgid "CURRENCY_ID"
-msgstr "CURRENCY_ID"
+msgstr "Валюта"
 
 #: ../class-gf-bitrix24.php:300
 msgid "OPPORTUNITY"
-msgstr "OPPORTUNITY"
+msgstr "Возможная сумма сделки"
 
 #: ../class-gf-bitrix24.php:300
 msgid "OPENED"
-msgstr "OPENED"
+msgstr "Доступен для всех"
 
 #: ../class-gf-bitrix24.php:300
 msgid "COMMENTS"
-msgstr "COMMENTS"
+msgstr "Комментарий"
 
 #: ../class-gf-bitrix24.php:300
 msgid "ASSIGNED_BY_ID"
-msgstr "ASSIGNED_BY_ID"
+msgstr "Ответственный"
 
 #: ../class-gf-bitrix24.php:300
 msgid "CREATED_BY_ID"
-msgstr "CREATED_BY_ID"
+msgstr "Создано пользователем"
 
 #: ../class-gf-bitrix24.php:300
 msgid "MODIFY_BY_ID"
-msgstr "MODIFY_BY_ID"
+msgstr "Изменено пользователем"
 
 #: ../class-gf-bitrix24.php:300
 msgid "DATE_CREATE"
-msgstr "DATE_CREATE"
+msgstr "Дата создания"
 
 #: ../class-gf-bitrix24.php:300
 msgid "DATE_MODIFY"
-msgstr "DATE_MODIFY"
+msgstr "Дата редактирования"
 
 #: ../class-gf-bitrix24.php:300
 msgid "COMPANY_ID"
-msgstr "COMPANY_ID"
+msgstr "Название компании"
 
 #: ../class-gf-bitrix24.php:300
 msgid "CONTACT_ID"
-msgstr "CONTACT_ID"
+msgstr "Идентификатор контакта"
 
 #: ../class-gf-bitrix24.php:300
 msgid "DATE_CLOSED"
-msgstr "DATE_CLOSED"
+msgstr "Дата закрытия"
 
 #: ../class-gf-bitrix24.php:300
 msgid "ORIGINATOR_ID"
-msgstr "ORIGINATOR_ID"
+msgstr "Идентификатор внешней информационной базы"
 
 #: ../class-gf-bitrix24.php:300
 msgid "ORIGIN_ID"
-msgstr "ORIGIN_ID"
+msgstr "Внешний ключ, используется для операций обмена"
 
 #: ../class-gf-bitrix24.php:300
 msgid "PHONE"
-msgstr "PHONE"
+msgstr "Телефон"
 
 #: ../class-gf-bitrix24.php:300
 msgid "EMAIL"
-msgstr "EMAIL"
+msgstr "E-mail"
 
 #: ../class-gf-bitrix24.php:300
 msgid "WEB"
-msgstr "WEB"
+msgstr "Сайт"
 
 #: ../class-gf-bitrix24.php:300
 msgid "IM"
-msgstr "IM"
+msgstr "Мессенджер"

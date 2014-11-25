@@ -294,10 +294,12 @@ class GFBitrix24 extends GFFeedAddOn {
 
 		$fields = array();
 		foreach ($result['result'] as $fieldKey => $field) {
+			if ( $field['isReadOnly'] ) continue;
+
 			$label = isset($field['formLabel']) ? $field['formLabel'] : $fieldKey;
 			$fields[] = array(
 				'name'     => $fieldKey,
-				'label'    => $label,
+				'label'    => __( $label, 'gravityformsbitrix24' ),
 				'required' => $field['isRequired'],
 			);
 		}
