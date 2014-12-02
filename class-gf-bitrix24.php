@@ -46,8 +46,6 @@ class GFBitrix24 extends GFFeedAddOn {
 
 		add_filter( 'gform_addon_navigation', array( $this, 'maybe_create_menu' ) );
 
-//		array_push($form["fields"],array("id" => "ip" , "label" => __("User IP", "gravityforms")));
-
 		if (isset($_GET['member_id'])) {
 			$this->oauth_login();
 		}
@@ -76,6 +74,7 @@ class GFBitrix24 extends GFFeedAddOn {
 		if (!$settings) $settings = $this->get_current_settings();
 
 
+		$redirect_url = get_admin_url(null, 'admin.php?page=gf_settings&subview=gravityformsbitrix24');
 		/** @var $serviceFactory \OAuth\ServiceFactory An OAuth service factory. */
 		$serviceFactory = new \OAuth\ServiceFactory();
 		// Session storage
@@ -84,7 +83,7 @@ class GFBitrix24 extends GFFeedAddOn {
 		$credentials = new \OAuth\Common\Consumer\Credentials(
 			$settings['clientId'],
 			$settings['clientSecret'],
-			get_admin_url(null, 'admin.php?page=gf_settings&subview=gravityformsbitrix24')
+			$redirect_url
 		);
 
 		/** @var $provider \OAuth\OAuth2\Service\Bitrix24 */
@@ -107,22 +106,32 @@ class GFBitrix24 extends GFFeedAddOn {
 			return $settings;
 		}
 
-		if (!isset($_GET['code'])) {
-			_e( 'Please wait...', 'gravityformsbitrix24' );
-			echo '<script>window.location = "'.$provider->getAuthorizationUri().'";</script>';
-			exit;
+		if (!isset($_GET['code']) && empty($settings['oauthCode'])) {
+			echo '<div class="error" style="padding: 10px; font-size: 12px;">' . __( 'Please enter the code', 'gravityformsbitrix24' ) . '</div>';
+			echo '<script>window.open("'.$provider->getAuthorizationUri().'", "_blank", "width=300, height=200");
+			</script>';
 
 		} else {
-			$token = $provider->requestAccessToken($_GET['code']);
+			$code = isset($_GET['code']) ? $_GET['code'] : $settings['oauthCode'];
+			try {
+				$token = $provider->requestAccessToken($code);
 
-			$settings['memberId'] = $_GET['member_id'];
-			$settings['authId'] = $token->getAccessToken();
-			$settings['refreshId'] = $token->getRefreshToken();
-			$settings['endOfLife'] = $token->getEndOfLife();
+				$extra_params = $token->getExtraParams();
+				$settings['memberId'] = $extra_params['member_id'];
+				$settings['authId'] = $token->getAccessToken();
+				$settings['refreshId'] = $token->getRefreshToken();
+				$settings['endOfLife'] = $token->getEndOfLife();
+				unset($settings['oauthCode']);
 
-			$this->update_plugin_settings($settings);
+				$this->update_plugin_settings($settings);
 
-			wp_redirect(get_admin_url(null, 'admin.php?page=gf_settings&subview=gravityformsbitrix24'));
+				if (isset($_GET['code'])) wp_redirect($redirect_url);
+			}
+			catch (\Exception $ex) {
+				$markup = '<div class="error" style="padding: 10px; font-size: 12px;">' . __( 'Oauth code is not right.', 'gravityformsbitrix24' ) . '</div>';
+
+				echo $markup;
+			}
 		}
 	}
 
@@ -138,7 +147,7 @@ class GFBitrix24 extends GFFeedAddOn {
 	// ------- Plugin settings -------
 
 	public function plugin_settings_fields() {
-		return array(
+		$data = array(
 			array(
 				'title'       => __( 'Bitrix24 Account Information', 'gravityformsbitrix24' ),
 				'description' => sprintf(
@@ -172,6 +181,18 @@ class GFBitrix24 extends GFFeedAddOn {
 				)
 			),
 		);
+
+		if ($this->is_save_postback()) {
+			$data[0]['fields'][] = array(
+				'name'              => 'oauthCode',
+				'label'             => __( 'Bitrix24 oauth code', 'gravityformsbitrix24' ),
+				'type'              => 'text',
+				'class'             => 'medium',
+				'feedback_callback' => array( $this, 'is_valid_settings' )
+			);
+		}
+
+		return $data;
 	}
 
 	/**
