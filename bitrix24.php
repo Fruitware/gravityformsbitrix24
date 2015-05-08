@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-define ('GF_BITRIX24_VERSION', '3.0');
+define ('GF_BITRIX24_VERSION', '3.1');
 
 add_action( 'gform_loaded', array( 'GF_Bitrix24_Bootstrap', 'load' ), 5 );
 
@@ -35,7 +35,7 @@ add_action('init', 'gf_vendor_autoload', 1);
 
 function gf_vendor_autoload()
 {
-	require_once get_home_path().'/vendor/autoload.php';
+	require_once get_site_home_path().'/vendor/autoload.php';
 }
 
 class GF_Bitrix24_Bootstrap {
@@ -54,4 +54,19 @@ class GF_Bitrix24_Bootstrap {
 
 function gf_bitrix24(){
 	return GFBitrix24::get_instance();
+}
+
+function get_site_home_path() {
+	$home    = set_url_scheme( get_option( 'home' ), 'http' );
+	$siteurl = set_url_scheme( get_option( 'siteurl' ), 'http' );
+	if ( ! empty( $home ) && 0 !== strcasecmp( $home, $siteurl ) ) {
+		$wp_path_rel_to_home = str_ireplace( $home, '', $siteurl ); /* $siteurl - $home */
+		$pos = strripos( str_replace( '\\', '/', $_SERVER['SCRIPT_FILENAME'] ), trailingslashit( $wp_path_rel_to_home ) );
+		$home_path = substr( $_SERVER['SCRIPT_FILENAME'], 0, $pos );
+		$home_path = trailingslashit( $home_path );
+	} else {
+		$home_path = ABSPATH;
+	}
+
+	return str_replace( '\\', '/', $home_path );
 }

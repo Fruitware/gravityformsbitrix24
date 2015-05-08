@@ -5,7 +5,7 @@ GFForms::include_feed_addon_framework();
 class GFBitrix24 extends GFFeedAddOn {
 
 	protected $_version = GF_BITRIX24_VERSION;
-	protected $_min_gravityforms_version = '1.8.17';
+	protected $_min_gravityforms_version = '1.9.7';
 	protected $_slug = 'gravityformsbitrix24';
 	protected $_path = 'gravityformsbitrix24/bitrix24.php';
 	protected $_full_path = __FILE__;
