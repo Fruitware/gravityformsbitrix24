@@ -5,7 +5,7 @@ GFForms::include_feed_addon_framework();
 class GFBitrix24 extends GFFeedAddOn {
 
 	protected $_version = GF_BITRIX24_VERSION;
-	protected $_min_gravityforms_version = '1.9.7';
+	protected $_min_gravityforms_version = '1.9.9';
 	protected $_slug = 'gravityformsbitrix24';
 	protected $_path = 'gravityformsbitrix24/bitrix24.php';
 	protected $_full_path = __FILE__;
@@ -204,9 +204,9 @@ class GFBitrix24 extends GFFeedAddOn {
 		return isset($settings['refreshId']);
 	}
 
-	public static function get_field_map_choices( $form_id ) {
+	public static function get_field_map_choices( $form_id, $field_type = null, $exclude_field_types = null ) {
 
-		$fields = parent::get_field_map_choices( $form_id );
+		$fields = parent::get_field_map_choices( $form_id, $field_type, $exclude_field_types );
 
 		// Adding default fields
 		$fields[] = array( "value" => "geoip_country" , "label" => __("Country (from Geo IP)", "gravityforms") );
@@ -317,7 +317,14 @@ class GFBitrix24 extends GFFeedAddOn {
 		foreach ($result['result'] as $fieldKey => $field) {
 			if ( $field['isReadOnly'] ) continue;
 
-			$label = isset($field['formLabel']) ? $field['formLabel'] : $fieldKey;
+			$label = $fieldKey;
+			if (isset($field['formLabel']) && $field['formLabel']) {
+				$label = $field['formLabel'];
+			}
+			elseif (isset($field['placeholder']) && $field['placeholder']) {
+				$label = $field['placeholder'];
+			}
+
 			$fields[] = array(
 				'name'     => $fieldKey,
 				'label'    => __( $label, 'gravityformsbitrix24' ),
