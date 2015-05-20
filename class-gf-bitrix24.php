@@ -211,6 +211,7 @@ class GFBitrix24 extends GFFeedAddOn {
 		// Adding default fields
 		$fields[] = array( "value" => "geoip_country" , "label" => __("Country (from Geo IP)", "gravityforms") );
 		$fields[] = array( "value" => "geoip_city" , "label" => __("City (from Geo IP)", "gravityforms") );
+		$fields[] = array( "value" => "browser_name" , "label" => __("Browser name", "gravityforms") );
 
 		return $fields;
 	}
@@ -365,6 +366,11 @@ class GFBitrix24 extends GFFeedAddOn {
 						$merge_vars[ $name ] = $geoip_data->$geoip_field_key;
 					}
 					break;
+
+				case 'browser_name':
+					$merge_vars[ $name ] = @$_SERVER['HTTP_USER_AGENT'];
+					break;
+
 				case 'form_title':
 					$merge_vars[ $name ] = rgar( $form, 'title' );
 					break;
